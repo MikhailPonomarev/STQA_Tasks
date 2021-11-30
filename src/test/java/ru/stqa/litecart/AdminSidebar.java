@@ -48,11 +48,18 @@ public class AdminSidebar {
         for (int i = 0; i < sideButtons.size(); i++) {
             sideButtons = driver.findElements(By.cssSelector("[id='app-']"));
             sideButtons.get(i).click();
-            String actual = driver.findElement(By.tagName("h1")).getTagName();
-            String expected = "h1";
-            Assertions.assertEquals(expected, actual);
+            String tagName = driver.findElement(By.tagName("h1")).getTagName();
+            boolean isTagEquals = tagName.equals("h1");
+            if (isTagEquals) {
+                List <WebElement> docs = driver.findElements(By.cssSelector("[id*=doc]"));
+                for (int j = 0; j < docs.size(); j++) {
+                    docs = driver.findElements(By.cssSelector("[id*=doc]"));
+                    docs.get(j).click();
+                    String subTagName = driver.findElement(By.tagName("h1")).getTagName();
+                    Assertions.assertEquals("h1", subTagName);
+                }
+            }
         }
-
         driver.findElement(By.cssSelector("[title='Logout']"));
     }
 }
