@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class AdminSidebar {
@@ -24,6 +25,7 @@ public class AdminSidebar {
     public void setUpChromeDriver() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     @AfterEach
@@ -43,8 +45,8 @@ public class AdminSidebar {
 
         List<WebElement> sideButtons = driver.findElements(By.cssSelector("[id='app-']"));
 
-        for (int i = 0; i < sideButtons.size();i++) {
-            sideButtons = driver.findElements(By.id("app-"));
+        for (int i = 0; i < sideButtons.size(); i++) {
+            sideButtons = driver.findElements(By.cssSelector("[id='app-']"));
             sideButtons.get(i).click();
             String actual = driver.findElement(By.tagName("h1")).getTagName();
             String expected = "h1";
