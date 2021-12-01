@@ -38,7 +38,8 @@ public class ItemStickersCheck {
 
 
     @Test
-    public void createCustomerUser() {
+    @DisplayName("Should ckeck all stickers on the products")
+    public void stickersCheck() {
         List<WebElement> products = driver.findElements(By.cssSelector(".product"));
         List<WebElement> stickers = driver.findElements(By.cssSelector(".sticker"));
 
@@ -47,6 +48,7 @@ public class ItemStickersCheck {
                 products = driver.findElements(By.cssSelector(".product"));
                 String actual = products.get(i).getTagName();
                 String expected = "li";
+
                 if (actual.equals(expected)) {
                     for (; i < stickers.size(); i++) {
                         stickers = driver.findElements(By.cssSelector(".sticker"));
