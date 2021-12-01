@@ -1,10 +1,7 @@
 package ru.stqa.litecart;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,15 +39,24 @@ public class ItemStickersCheck {
 
     @Test
     public void createCustomerUser() {
-        driver.findElement(By.cssSelector(".category-1")).click();
         List<WebElement> products = driver.findElements(By.cssSelector(".product"));
+        List<WebElement> stickers = driver.findElements(By.cssSelector(".sticker"));
 
-        for (int i = 0; i < products.size(); i++) {
-            products = driver.findElements(By.cssSelector(".product"));
-            products.get(i).click();
-            List<WebElement> stickers = driver.findElements(By.cssSelector(".images-wrapper a > [class*=sticker]"));
-            if (stickers.size() == 1)
-                driver.findElement(By.cssSelector(".category-1")).click();
+        if (products.size() == stickers.size()) {
+            for (int i = 0; i < products.size(); i++) {
+                products = driver.findElements(By.cssSelector(".product"));
+                String actual = products.get(i).getTagName();
+                String expected = "li";
+                if (actual.equals(expected)) {
+                    for (; i < stickers.size(); i++) {
+                        stickers = driver.findElements(By.cssSelector(".sticker"));
+                        String act = stickers.get(i).getTagName();
+                        String exp = "div";
+                        Assertions.assertEquals(exp, act);
+                        break;
+                    }
+                }
+            }
         }
     }
 }
