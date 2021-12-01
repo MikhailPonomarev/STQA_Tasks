@@ -46,15 +46,14 @@ public class ItemStickersCheck {
         if (products.size() == stickers.size()) {
             for (int i = 0; i < products.size(); i++) {
                 products = driver.findElements(By.cssSelector(".product"));
-                String actual = products.get(i).getTagName();
-                String expected = "li";
+                String actualProductTag = products.get(i).getTagName();
+                String expectedProductTag = "li";
 
-                if (actual.equals(expected)) {
+                if (actualProductTag.equals(expectedProductTag)) {
                     for (; i < stickers.size(); i++) {
                         stickers = driver.findElements(By.cssSelector(".sticker"));
-                        String act = stickers.get(i).getTagName();
-                        String exp = "div";
-                        Assertions.assertEquals(exp, act);
+                        String actualStickerTag = stickers.get(i).getTagName();
+                        Assertions.assertEquals("div", actualStickerTag);
                         break;
                     }
                 }
