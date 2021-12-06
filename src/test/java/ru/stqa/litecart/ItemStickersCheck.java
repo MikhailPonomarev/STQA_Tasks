@@ -36,29 +36,22 @@ public class ItemStickersCheck {
         driver = null;
     }
 
-
+    @Disabled
     @Test
     @DisplayName("Should ckeck all stickers on the products")
     public void stickersCheck() {
         List<WebElement> products = driver.findElements(By.cssSelector(".product"));
-        List<WebElement> stickers = driver.findElements(By.cssSelector(".sticker"));
+        List<WebElement> stickers;
 
-        if (products.size() == stickers.size()) {
-            for (int i = 0; i < products.size(); i++) {
-                products = driver.findElements(By.cssSelector(".product"));
-                String actualProductTag = products.get(i).getTagName();
-                String expectedProductTag = "li";
+        int i = 0;
 
-                if (actualProductTag.equals(expectedProductTag)) {
-                    for (; i < stickers.size(); i++) {
-                        stickers = driver.findElements(By.cssSelector(".sticker"));
-                        String actualStickerTag = stickers.get(i).getTagName();
-                        Assertions.assertEquals("div", actualStickerTag);
-                        break;
-                    }
-                }
+        for (WebElement element : products) {
+            stickers = element.findElements(By.cssSelector(".sticker"));
+            if (stickers.size() == 1) {
+                i++;
             }
         }
+        Assertions.assertEquals(products.size(), i);
     }
 }
 
